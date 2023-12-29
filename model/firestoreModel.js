@@ -59,6 +59,34 @@ const dtoUserModel = {
     })
     return await usersRef.doc(uid).update({ ...data })
   }),
+  registerAdmin: asyncHandler(async (data) => {
+    try {
+      const user = await admin
+        .auth()
+        .createUser({ email: data.email, password: data.password })
+      await admin.auth().updateUser(user.uid, {
+        displayName: data.name,
+      })
+      const userData = {
+        admin: true,
+        uid: user.uid,
+        fcmToken: "",
+        name: data.name,
+        position: data.position,
+        office: data.office,
+        email: user.email,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      }
+      await admin
+        .auth()
+        .setCustomUserClaims(user.uid, { admin: userData.admin })
+
+      const userDocRef = usersRef.doc(user.uid)
+      await userDocRef.set({ ...userData })
+    } catch (error) {
+      throw error
+    }
+  }),
   // Updates user role using their uid
   setAdmin: async (uid) => {
     try {

@@ -9,6 +9,7 @@ const {
 
 // Users
 router.route("/register").post(authMiddleware, dtoUserController.createUser)
+router.route("/register/admin").post(authMiddleware, dtoUserController.registerAdmin)
 router.route("/users").get(dtoUserController.getAllUsers)
 router.route("/update/user/:uid").put(dtoUserController.updateUser)
 router.route("/admin/:id").put(dtoUserController.setAdmin)

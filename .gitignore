@@ -1,3 +1,4 @@
 node_modules
 .env
 dto-service-account.json
+nemsu-dto-firebase-adminsdk.json

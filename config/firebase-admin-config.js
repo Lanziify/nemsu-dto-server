@@ -1,5 +1,5 @@
 const admin = require("firebase-admin");
-const serviceAccount = require("../dto-service-account.json");
+const serviceAccount = require("../nemsu-dto-firebase-adminsdk.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
